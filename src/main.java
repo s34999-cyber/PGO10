@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 record UserForm(String email, String password, int age) {
     public UserForm{
         if(email.isBlank()) {
-            throw new IllegalArgumentException("do not");
+            throw new IllegalArgumentException("Email is blank.");
         }
     }
 
@@ -63,5 +63,20 @@ public class main {
         System.out.println("Order made by:" + order.clientName() + " For:" +calculator.calculate(order, standard));
         System.out.println(calculator.calculate(order, discount));
         System.out.println(calculator.calculate(order, weekend));
+
+        Order order2 = new Order("ORD-100", "Anna Kowalska");
+
+        order2.addItem(new Order.OrderItem("Keyboard", 249.99, 1));
+        order2.addItem(new Order.OrderItem("Mouse", 99.99, 2));
+
+        OrderSummary summary = new OrderSummary(
+                order2.getOrderNumber(),
+                order2.getCustomerName(),
+                order2.total()
+        );
+
+        System.out.println(summary);
     }
+
+
 }
