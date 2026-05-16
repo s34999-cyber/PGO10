@@ -74,8 +74,16 @@ public class main {
                 order2.getCustomerName(),
                 order2.total()
         );
-
         System.out.println(summary);
+
+
+        LibraryAccount account = new LibraryAccount("John Smith", 3, 5);
+        LibraryAccount.FineCalculator calculator2 = account.new FineCalculator();
+        //FineCalculator is contained in LibraryAccount class, aka our account object, so we go through it to get to finecalculator
+        double fine = calculator2.calculate();
+
+        MessagePrinter printer = message -> System.out.println("[LIBRARY] " + message);
+        printer.print("Reader: " + account.getReaderName() + ", fine: " + fine + " PLN");
     }
 
 
