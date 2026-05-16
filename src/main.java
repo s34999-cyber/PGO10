@@ -30,6 +30,18 @@ class UserValidator {
     }
 }
 
+record ServiceOrder(String clientName, int hours, double hourRate){
+
+}
+
+@FunctionalInterface
+//has exactly one method, above tag ensures that
+interface PriceStrategy {
+    double calculate(ServiceOrder order);
+}
+
+
+
 public class main {
     public static void main (String args[]) {
         UserValidator validator = new UserValidator();
@@ -40,5 +52,16 @@ public class main {
 
         UserForm form = new UserForm("anna@example.com", "secure123", 20);
         System.out.println(validator.isValid(form));
+
+        ServiceOrder order = new ServiceOrder("Alpha Company", 10, 100.0);
+        PriceCalculator calculator = new PriceCalculator();
+
+        PriceStrategy standard = o -> o.hours() * o.hourRate();
+        PriceStrategy discount = o -> o.hours() * o.hourRate() * 0.90;
+        PriceStrategy weekend = o -> o.hours() * o.hourRate() * 1.25;
+
+        System.out.println("Order made by:" + order.clientName() + " For:" +calculator.calculate(order, standard));
+        System.out.println(calculator.calculate(order, discount));
+        System.out.println(calculator.calculate(order, weekend));
     }
 }
